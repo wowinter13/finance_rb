@@ -17,9 +17,9 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = Gem::Requirement.new(">= 2.4.0")
   spec.metadata    = {
     'bug_tracker_uri'   => 'https://github.com/wowinter13/finance_rb/issues',
-    'changelog_uri'     => "https://github.com/wowinter13/finance_rb/blob/v#{spec.version}/CHANGELOG.md",
-    'documentation_uri' => "https://www.rubydoc.info/wowinter13/finance_rb/#{spec.version}",
-    'source_code_uri'   => "https://github.com/wowinter13/finance_rb/tree/v#{spec.version}"
+    'changelog_uri'     => "https://github.com/wowinter13/finance_rb/blob/master/CHANGELOG.md",
+    'documentation_uri' => "https://www.rubydoc.info/github/wowinter13/finance_rb",
+    'source_code_uri'   => "https://github.com/wowinter13/finance_rb"
   }
 
   spec.files         = %w[CHANGELOG.md README.md LICENSE.txt]
