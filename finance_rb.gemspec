@@ -3,7 +3,7 @@
 require_relative "lib/finance/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "finance-rb"
+  spec.name          = "finance_rb"
   spec.version       = Finance::VERSION
   spec.authors       = ["Vlad Dyachenko"]
   spec.email         = ["vla-dy@yandex.ru"]
@@ -12,14 +12,14 @@ Gem::Specification.new do |spec|
   spec.description   = "A ruby port of numpy-financial functions. "\
   "This library provides a Ruby interface for working with interest rates, "\
   "mortgage amortization, and cashflows and other stuff from finance."
-  spec.homepage      = "https://github.com/wowinter13/finance-rb"
+  spec.homepage      = "https://github.com/wowinter13/finance_rb"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.4.0")
   spec.metadata    = {
-    'bug_tracker_uri'   => 'https://github.com/wowinter13/finance-rb/issues',
-    'changelog_uri'     => "https://github.com/wowinter13/finance-rb/blob/v#{spec.version}/CHANGELOG.md",
-    'documentation_uri' => "https://www.rubydoc.info/wowinter13/finance-rb/#{spec.version}",
-    'source_code_uri'   => "https://github.com/wowinter13/finance-rb/tree/v#{spec.version}"
+    'bug_tracker_uri'   => 'https://github.com/wowinter13/finance_rb/issues',
+    'changelog_uri'     => "https://github.com/wowinter13/finance_rb/blob/v#{spec.version}/CHANGELOG.md",
+    'documentation_uri' => "https://www.rubydoc.info/wowinter13/finance_rb/#{spec.version}",
+    'source_code_uri'   => "https://github.com/wowinter13/finance_rb/tree/v#{spec.version}"
   }
 
   spec.files         = %w[CHANGELOG.md README.md LICENSE.txt]

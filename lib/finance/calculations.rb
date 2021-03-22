@@ -10,7 +10,7 @@ module Finance
       # @param [Array<Numeric>] :values The values of the time series of cash flows.
       # 
       # @example
-      #   require 'finance-rb'
+      #   require 'finance_rb'
       #   Finance::Calculations.npv(0.1, [-1000, 100, 100, 100]) #=> -789.3518518518517
       #
       # @see http://en.wikipedia.org/wiki/Net_present_value

@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in finance-rb.gemspec
+# Specify your gem's dependencies in finance_rb.gemspec
 gemspec
 
 gem "rake", "~> 13.0"

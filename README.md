@@ -1,4 +1,4 @@
-# finance-rb
+# finance_rb
 
 This package is a ruby native port of the numpy-financial package with some helpful additional functions.
 
