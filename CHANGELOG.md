@@ -1,4 +1,7 @@
-## [Unreleased]
+## [0.0.3] - 2021-03-23
+
+### Added
+* Implement Finance::Calculations#irr using Newton's method
 
 ## [0.0.2] - 2021-03-22
 
