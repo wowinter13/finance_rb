@@ -1,43 +1,21 @@
-# Finance::Rb
+# finance-rb
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/finance/rb`. To experiment with that code, run `bin/console` for an interactive prompt.
+This package is a ruby native port of the numpy-financial package with some helpful additional functions.
 
-TODO: Delete this and the text above, and describe your gem
+The functions in this package are a scalar version of their vectorised counterparts in  the [numpy-financial](https://github.com/numpy/numpy-financial) library.
 
-## Installation
+Currently, only some functions are ported,  
+which are as follows:  
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'finance-rb'
-```
-
-And then execute:
-
-    $ bundle install
-
-Or install it yourself as:
-
-    $ gem install finance-rb
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/finance-rb. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/finance-rb/blob/master/CODE_OF_CONDUCT.md).
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the Finance::Rb project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/finance-rb/blob/master/CODE_OF_CONDUCT.md).
+| numpy-financial function     | ruby native function ported?   | info|
+|:------------------------:    |:------------------:  | :------------------|
+| fv                           |    |   Computes the  future value|
+| ipmt                         |    |   Computes interest payment for a loan|
+| pmt                          |    |   Computes the fixed periodic payment(principal + interest) made against a loan amount|
+| ppmt                         |    |   Computes principal payment for a loan|
+| nper                         |    |    Computes the number of periodic payments|
+| pv                           |      |   Computes the present value of a payment|
+| rate                         |      |    Computes the rate of interest per period|
+| irr                          |       |    Computes the internal rate of return|
+| npv                          |  ✅   |   Computes the net present value of a series of cash flow|
+| mirr                         |       |    Computes the modified internal rate of return|

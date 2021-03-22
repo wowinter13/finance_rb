@@ -1,37 +1,33 @@
 # frozen_string_literal: true
 
-require_relative "lib/finance/rb/version"
+require_relative "lib/finance/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "finance-rb"
-  spec.version       = Finance::Rb::VERSION
-  spec.authors       = ["Vladislav"]
+  spec.version       = Finance::VERSION
+  spec.authors       = ["Vlad Dyachenko"]
   spec.email         = ["vla-dy@yandex.ru"]
 
-  spec.summary       = "TODO: Write a short summary, because RubyGems requires one."
-  spec.description   = "TODO: Write a longer description or delete this line."
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = "A library for finance manipulations in Ruby."
+  spec.description   = ```
+  A ruby port of numpy-financial functions.
+  This library provides a Ruby interface for working with interest rates,
+  mortgage amortization, and cashflows and other stuff from finance.
+  ```
+  spec.homepage      = "https://github.com/wowinter13/finance-rb"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.4.0")
+  s.metadata    = {
+    'bug_tracker_uri'   => 'https://github.com/wowinter13/finance-rb/issues',
+    'changelog_uri'     => "https://github.com/wowinter13/finance-rb/blob/v#{s.version}/CHANGELOG.md",
+    'documentation_uri' => "https://www.rubydoc.info/wowinter13/finance-rb/#{s.version}",
+    'source_code_uri'   => "https://github.com/wowinter13/finance-rb/tree/v#{s.version}"
+  }
 
-  spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
-
-  spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
-  spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
-
-  # Specify which files should be added to the gem when it is released.
-  # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
-  spec.files = Dir.chdir(File.expand_path(__dir__)) do
-    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{\A(?:test|spec|features)/}) }
-  end
+  s.files         = %w[CHANGELOG.md README.md LICENSE.txt]
+  s.files        += Dir['lib/**/*']
+  s.test_files    = Dir['spec/**/*']
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
-
-  # Uncomment to register a new dependency of your gem
-  # spec.add_dependency "example-gem", "~> 1.0"
-
-  # For more information and examples about making a new gem, checkout our
-  # guide at: https://bundler.io/guides/creating_gem.html
 end

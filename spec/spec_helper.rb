@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require "finance/rb"
+require "finance/calculations"
+require "finance/loan"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
