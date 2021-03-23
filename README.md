@@ -2,7 +2,9 @@
 
 This package is a ruby native port of the numpy-financial package with some helpful additional functions.
 
-The functions in this package are a scalar version of their vectorised counterparts in  the [numpy-financial](https://github.com/numpy/numpy-financial) library.
+The functions in this package are a scalar version of their vectorised counterparts in  the [numpy-financial](https://github.com/numpy/numpy-financial) library. 
+
+[![Release](https://img.shields.io/github/v/release/wowinter13/finance_rb.svg?style=flat-square)](https://github.com/wowinter13/finance_rb/releases) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 Currently, only some functions are ported,  
 which are as follows:  
