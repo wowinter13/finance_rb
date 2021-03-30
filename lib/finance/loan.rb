@@ -5,6 +5,7 @@ module Finance
     PAYMENT_TYPE_MAPPING = { end: 0, beginning: 1 }.freeze
 
     # @return [Float] The amount of loan request (I.e. a present value)
+    #   You can use #pv method to calculate value if param is not defined.
     #   Defaults to 0.
     attr_accessor :amount
 
@@ -27,22 +28,31 @@ module Finance
     attr_accessor :duration
 
     # @return [Float] Future value.
+    #   You can use #fv method to calculate value if param is not defined.
     #   Defaults to 0.
     attr_accessor :future_value
 
+    # @return [Float] The (fixed) periodic payment.
+    #   You can use #pmt method to calculate value if param is not defined.
+    attr_accessor :payment
+
+    # Create a new Loan instance.
     def initialize(**options)
       initialize_payment_type(options[:ptype])
       @nominal_rate  = options.fetch(:nominal_rate, 0).to_f
       @duration      = options.fetch(:duration, 1).to_f
       @amount        = options.fetch(:amount, 0).to_f
       @future_value  = options.fetch(:future_value, 0).to_f
-      @monthly_rate = @nominal_rate / 12
+      @payment       = options[:payment]
+      @monthly_rate  = @nominal_rate / 12
     end
 
     # Pmt computes the payment against a loan principal plus interest (future_value = 0).
     #   It can also be used to calculate the recurring payments needed to achieve
     #   a certain future value given an initial deposit,
     #   a fixed periodically compounded interest rate, and the total number of periods.
+    #
+    #   Required Loan arguments: nominal_rate, duration, amount, future_value*
     #
     # @return [Numeric] The (fixed) periodic payment.
     #
@@ -67,6 +77,36 @@ module Finance
         end
 
       (-future_value + amount * factor) / second_factor
+    end
+
+    # Fv computes future value at the end of some periods (duration).
+    #   Required Loan arguments: nominal_rate, duration, payment, amount*
+    #
+    # @param payment [Float] The (fixed) periodic payment.
+    #   In case you don't want to modify the original loan, use this parameter to recalculate fv.
+    #
+    # @return [Float] The value at the end of the `duration` periods.
+    #
+    # @example
+    #   require 'finance_rb'
+    #   Finance::Loan.new(nominal_rate: 0.05, duration: 120, amount: -100, payment: -200).fv
+    #   #=> 15692.928894335748
+    #
+    # @see http://www.oasis-open.org/committees/documents.php?wg_abbrev=office-formulaOpenDocument-formula-20090508.odt
+    # @see [WRW] Wheeler, D. A., E. Rathke, and R. Weir (Eds.) (2009, May).
+    #   Open Document Format for Office Applications (OpenDocument)v1.2,
+    #   Part 2: Recalculated Formula (OpenFormula) Format - Annotated Version,
+    #   Pre-Draft 12. Organization for the Advancement of Structured Information
+    #   Standards (OASIS). Billerica, MA, USA. [ODT Document].
+    def fv(payment: nil)
+      raise ArgumentError, 'no payment given' if self.payment.nil? && payment.nil?
+
+      final_payment = payment || self.payment
+
+      factor = (1.0 + monthly_rate)**duration
+      second_factor = (factor - 1) * (1 + monthly_rate * ptype) / monthly_rate
+
+      -((amount * factor) + (final_payment.to_f * second_factor))
     end
 
     private
