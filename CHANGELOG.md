@@ -1,3 +1,8 @@
+## [0.1.1] - 2021-03-30
+
+### Added
+* Implement `Finance::Loan#fv`
+
 ## [0.1.0] - 2021-03-28
 
 ### Added
