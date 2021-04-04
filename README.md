@@ -12,7 +12,7 @@ which are as follows:
 | numpy-financial function     | ruby native function ported?   | info|
 |:------------------------:    |:------------------:  | :------------------|
 | fv                           |   ✅    |   Computes the  future value|
-| ipmt                         |       |   Computes interest payment for a loan|
+| ipmt                         |   ✅   |   Computes interest payment for a loan|
 | pmt                          |  ✅    |   Computes the fixed periodic payment(principal + interest) made against a loan amount|
 | ppmt                         |       |   Computes principal payment for a loan|
 | nper                         |       |    Computes the number of periodic payments|

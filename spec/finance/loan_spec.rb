@@ -70,4 +70,33 @@ RSpec.describe Finance::Loan do
       end
     end
   end
+
+  describe '#ipmt' do
+    context 'when 1 period' do
+      it 'calculates correct ipmt value' do
+        loan = Finance::Loan.new(
+          nominal_rate: 0.0824, duration: 12, amount: 2500, period: 1
+        )
+        expect(loan.ipmt).to eq(-17.166666666666668)
+      end
+    end
+
+    context 'when 2 periods' do
+      it 'calculates correct ipmt value' do
+        loan = Finance::Loan.new(
+          nominal_rate: 0.0824, duration: 12, amount: 2500, period: 2
+        )
+        expect(loan.ipmt).to eq(-15.789337457350777)
+      end
+    end
+
+    context 'when 3 periods' do
+      it 'calculates correct ipmt value' do
+        loan = Finance::Loan.new(
+          nominal_rate: 0.0824, duration: 12.0, amount: 2500.0, period: 3.0, fv: 0.0
+        )
+        expect(loan.ipmt).to eq(-14.402550587464257)
+      end
+    end
+  end
 end
