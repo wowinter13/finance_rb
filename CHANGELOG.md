@@ -1,3 +1,8 @@
+## [0.1.2] - 2021-04-05
+
+### Added
+* Implement `Finance::Loan#ipmt`
+
 ## [0.1.1] - 2021-03-30
 
 ### Added
