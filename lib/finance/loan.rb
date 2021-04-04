@@ -36,6 +36,9 @@ module Finance
     #   You can use #pmt method to calculate value if param is not defined.
     attr_accessor :payment
 
+    # @return [Float] Period under consideration.
+    attr_accessor :period
+
     # Create a new Loan instance.
     def initialize(**options)
       initialize_payment_type(options[:ptype])
@@ -43,6 +46,7 @@ module Finance
       @duration      = options.fetch(:duration, 1).to_f
       @amount        = options.fetch(:amount, 0).to_f
       @future_value  = options.fetch(:future_value, 0).to_f
+      @period        = options[:period]
       @payment       = options[:payment]
       @monthly_rate  = @nominal_rate / 12
     end
@@ -77,6 +81,34 @@ module Finance
         end
 
       (-future_value + amount * factor) / second_factor
+    end
+
+    # IPmt computes interest payment for a loan under a given period.
+    #
+    #   Required Loan arguments: period, nominal_rate, duration, amount, future_value*
+    #
+    # @return [Float] Interest payment for a loan.
+    #
+    # @example
+    #   require 'finance_rb'
+    #   Finance::Loan.new(nominal_rate: 0.0824, duration: 12, amount: 2500, period: 1).ipmt
+    #   #=> -17.166666666666668
+    #
+    # @see http://www.oasis-open.org/committees/documents.php?wg_abbrev=office-formulaOpenDocument-formula-20090508.odt
+    # @see [WRW] Wheeler, D. A., E. Rathke, and R. Weir (Eds.) (2009, May).
+    #   Open Document Format for Office Applications (OpenDocument)v1.2,
+    #   Part 2: Recalculated Formula (OpenFormula) Format - Annotated Version,
+    #   Pre-Draft 12. Organization for the Advancement of Structured Information
+    #   Standards (OASIS). Billerica, MA, USA. [ODT Document].
+    def ipmt
+      raise ArgumentError, 'no period given' if period.nil?
+
+      ipmt_val = remaining_balance * monthly_rate
+      if ptype == PAYMENT_TYPE_MAPPING[:beginning]
+        period == 1 ? 0.0 : (ipmt_val / 1 + monthly_rate)
+      else
+        ipmt_val
+      end
     end
 
     # Fv computes future value at the end of some periods (duration).
@@ -118,6 +150,13 @@ module Finance
         else
           PAYMENT_TYPE_MAPPING[ptype]
         end
+    end
+
+    def remaining_balance
+      self.class.new(
+        nominal_rate: nominal_rate.to_f, duration: period - 1.0,
+        amount: amount.to_f, ptype: PAYMENT_TYPE_MAPPING.key(ptype)
+      ).fv(payment: -pmt)
     end
   end
 end
