@@ -80,7 +80,7 @@ module Finance
           (factor - 1) * (1 + monthly_rate * ptype) / monthly_rate
         end
 
-      (-future_value + amount * factor) / second_factor
+      -((future_value + amount * factor) / second_factor)
     end
 
     # IPmt computes interest payment for a loan under a given period.
@@ -109,6 +109,27 @@ module Finance
       else
         ipmt_val
       end
+    end
+
+    # PPmt computes principal payment for a loan under a given period.
+    #
+    #   Required Loan arguments: period, nominal_rate, duration, amount, future_value*
+    #
+    # @return [Float] Principal payment for a loan under a given period.
+    #
+    # @example
+    #   require 'finance_rb'
+    #   Finance::Loan.new(nominal_rate: 0.0824, duration: 12, amount: 2500, period: 1).ppmt
+    #   #=> -200.58192368678277
+    #
+    # @see http://www.oasis-open.org/committees/documents.php?wg_abbrev=office-formulaOpenDocument-formula-20090508.odt
+    # @see [WRW] Wheeler, D. A., E. Rathke, and R. Weir (Eds.) (2009, May).
+    #   Open Document Format for Office Applications (OpenDocument)v1.2,
+    #   Part 2: Recalculated Formula (OpenFormula) Format - Annotated Version,
+    #   Pre-Draft 12. Organization for the Advancement of Structured Information
+    #   Standards (OASIS). Billerica, MA, USA. [ODT Document].
+    def ppmt
+      pmt - ipmt
     end
 
     # Fv computes future value at the end of some periods (duration).
@@ -156,7 +177,7 @@ module Finance
       self.class.new(
         nominal_rate: nominal_rate.to_f, duration: period - 1.0,
         amount: amount.to_f, ptype: PAYMENT_TYPE_MAPPING.key(ptype)
-      ).fv(payment: -pmt)
+      ).fv(payment: pmt)
     end
   end
 end
