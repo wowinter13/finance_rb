@@ -1,3 +1,8 @@
+## [0.2.2] - 2021-05-01
+
+### Added
+* Implement `Finance::Loan#pv`
+
 ## [0.2.1] - 2021-05-01
 
 ### Added
