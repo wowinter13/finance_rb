@@ -16,7 +16,7 @@ which are as follows:
 | pmt                          |  ✅    |   Computes the fixed periodic payment(principal + interest) made against a loan amount|
 | ppmt                         |   ✅   |   Computes principal payment for a loan|
 | nper                         |    ✅   |    Computes the number of periodic payments|
-| pv                           |       |   Computes the present value of a payment|
+| pv                           |    ✅  |   Computes the present value of a payment|
 | rate                         |     |    Computes the rate of interest per period|
 | irr                          |    ✅    |    Computes the internal rate of return|
 | npv                          |  ✅   |   Computes the net present value of a series of cash flow|
