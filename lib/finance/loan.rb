@@ -25,6 +25,7 @@ module Finance
 
     # @return [Float] The number of periods to be compounded for. (I.e. Nper())
     #   Defaults to 1.
+    #   You can use #nper method to calculate value if param is not defined.
     attr_accessor :duration
 
     # @return [Float] Future value.
@@ -176,6 +177,29 @@ module Finance
       second_factor = (factor - 1) * (1 + monthly_rate * ptype) / monthly_rate
 
       -((amount * factor) + (final_payment.to_f * second_factor))
+    end
+
+    # Pv computes present value.
+    #   Required Loan arguments: nominal_rate, duration, payment, future_value, *ptype
+    #
+    # @return [Float] The present value.
+    #
+    # @example
+    #   require 'finance_rb'
+    #   Finance::Loan.new(nominal_rate: 0.24, duration: 12, future_value: 1000, payment: -300, ptype: :ending).pv
+    #   #=> 2384.1091906935
+    #
+    # @see http://www.oasis-open.org/committees/documents.php?wg_abbrev=office-formulaOpenDocument-formula-20090508.odt
+    # @see [WRW] Wheeler, D. A., E. Rathke, and R. Weir (Eds.) (2009, May).
+    #   Open Document Format for Office Applications (OpenDocument)v1.2,
+    #   Part 2: Recalculated Formula (OpenFormula) Format - Annotated Version,
+    #   Pre-Draft 12. Organization for the Advancement of Structured Information
+    #   Standards (OASIS). Billerica, MA, USA. [ODT Document].
+    def pv
+      factor = (1.0 + monthly_rate)**duration
+      second_factor = (factor - 1) * (1 + monthly_rate * ptype) / monthly_rate
+
+      -(future_value + (payment.to_f * second_factor)) / factor
     end
 
     private

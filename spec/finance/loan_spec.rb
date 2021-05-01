@@ -71,6 +71,26 @@ RSpec.describe Finance::Loan do
     end
   end
 
+  describe '#pv' do
+    context 'when :ptype == beginning' do
+      it 'calculates correct pv value' do
+        loan = Finance::Loan.new(
+          nominal_rate: 0.24, duration: 12, future_value: 1000, payment: -300, ptype: :beginning
+        )
+        expect(loan.pv).to eq(2447.5612380190028)
+      end
+    end
+
+    context 'when :ptype == ending' do
+      it 'calculates correct pv value' do
+        loan = Finance::Loan.new(
+          nominal_rate: 0.24, duration: 12, future_value: 1000, payment: -300, ptype: :ending
+        )
+        expect(loan.pv).to eq(2384.1091906935)
+      end
+    end
+  end
+
   describe '#ipmt' do
     context 'when 1 period' do
       it 'calculates correct ipmt value' do
