@@ -2,7 +2,7 @@
 
 module Finance
   class Loan
-    PAYMENT_TYPE_MAPPING = { end: 0, beginning: 1 }.freeze
+    PAYMENT_TYPE_MAPPING = { end: 0.0, beginning: 1.0 }.freeze
 
     # @return [Float] The amount of loan request (I.e. a present value)
     #   You can use #pv method to calculate value if param is not defined.
@@ -88,7 +88,7 @@ module Finance
     #
     #   Required Loan arguments: period, nominal_rate, duration, amount, future_value*
     #
-    # @return [Float] Interest payment for a loan.
+    # @return [Float] The interest payment for a loan.
     #
     # @example
     #   require 'finance_rb'
@@ -116,7 +116,7 @@ module Finance
     #
     #   Required Loan arguments: period, nominal_rate, duration, amount, future_value*
     #
-    # @return [Float] Principal payment for a loan under a given period.
+    # @return [Float] The principal payment for a loan under a given period.
     #
     # @example
     #   require 'finance_rb'
@@ -137,7 +137,7 @@ module Finance
     #
     #   Required Loan arguments: payment, nominal_rate, period, amount, future_value*
     #
-    # @return [Float] Number of periodic payments.
+    # @return [Float] The number of periodic payments.
     #
     # @example
     #   require 'finance_rb'
@@ -202,8 +202,59 @@ module Finance
       -(future_value + (payment.to_f * second_factor)) / factor
     end
 
+    # Rate computes the interest rate per period
+    #   by running Newton Rapson to find an approximate value.
+    #
+    # @return [Float] The interest rate.
+    #
+    # @param tolerance [Float] Required tolerance for the solution.
+    # @param initial_guess [Float] Starting guess for solving the rate of interest.
+    # @param iterations [Integer] Maximum iterations in finding the solution.
+    #
+    # @example
+    #   require 'finance_rb'
+    #   Finance::Loan.new(nominal_rate: 10, amount: -3500, payment: 0, duration: 10, future_value: 10000).rate
+    #   #=> 0.11069085371426901
+    #
+    # @see http://www.oasis-open.org/committees/documents.php?wg_abbrev=office-formulaOpenDocument-formula-20090508.odt
+    # @see [WRW] Wheeler, D. A., E. Rathke, and R. Weir (Eds.) (2009, May).
+    #   Open Document Format for Office Applications (OpenDocument)v1.2,
+    #   Part 2: Recalculated Formula (OpenFormula) Format - Annotated Version,
+    #   Pre-Draft 12. Organization for the Advancement of Structured Information
+    #   Standards (OASIS). Billerica, MA, USA. [ODT Document].
+    def rate(tolerance: 1e-6, iterations: 100, initial_guess: 0.1)
+      next_iteration_rate = nil
+      current_iteration_rate = initial_guess
+
+      (0..iterations).each do |iteration|
+        next_iteration_rate = current_iteration_rate - rate_ratio(current_iteration_rate)
+        break if (next_iteration_rate - current_iteration_rate).abs <= tolerance
+        current_iteration_rate = next_iteration_rate
+      end
+
+      next_iteration_rate
+    end
+
     private
 
+    # rate_ratio computes the ratio
+    #   that is used to find a single value that sets the non-liner equation to zero.
+    #
+    # @api private
+    def rate_ratio(rate)
+      t1 = (rate+1.0) ** duration
+      t2 = (rate+1.0) ** (duration-1.0)
+      g = future_value + t1 * amount + payment * (t1 - 1.0) * (rate * ptype + 1.0) / rate
+      derivative_g = \
+        (duration * t2 * amount)
+          - (payment * (t1 - 1.0) * (rate * ptype + 1.0) / (rate ** 2.0))
+          + (duration * payment * t2 * (rate * ptype + 1.0) / rate)
+          + (payment * (t1 - 1.0) * ptype/rate)
+      
+      g / derivative_g
+    end
+
+    # @api private
     def initialize_payment_type(ptype)
       @ptype =
         if ptype.nil? || !PAYMENT_TYPE_MAPPING.keys.include?(ptype)
@@ -213,6 +264,7 @@ module Finance
         end
     end
 
+    # @api private
     def remaining_balance
       self.class.new(
         nominal_rate: nominal_rate.to_f, duration: period - 1.0,

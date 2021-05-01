@@ -17,10 +17,18 @@ which are as follows:
 | ppmt                         |   ✅   |   Computes principal payment for a loan|
 | nper                         |    ✅   |    Computes the number of periodic payments|
 | pv                           |    ✅  |   Computes the present value of a payment|
-| rate                         |     |    Computes the rate of interest per period|
+| rate                         |   ✅ |    Computes the rate of interest per period|
 | irr                          |    ✅    |    Computes the internal rate of return|
 | npv                          |  ✅   |   Computes the net present value of a series of cash flow|
 | mirr                         |    ✅    |    Computes the modified internal rate of return|
+
+
+Things to be done:
+
+1. Xirr
+2. More specs for edge cases
+3. Fee, currency protection and other cool stuff for advanced usage
+4. Better errors
 
 ## Installation
 
