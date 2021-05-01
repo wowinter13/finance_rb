@@ -132,6 +132,22 @@ module Finance
       pmt - ipmt
     end
 
+    # Nper computes the number of periodic payments.
+    #
+    #   Required Loan arguments: payment, nominal_rate, period, amount, future_value*
+    #
+    # @return [Float] Number of periodic payments.
+    #
+    # @example
+    #   require 'finance_rb'
+    #   Finance::Loan.new(nominal_rate: 0.07, amount: 8000, payment: -150).nper
+    #   #=> 64.0733487706618586
+    def nper
+      z = payment * (1.0 + monthly_rate * ptype) / monthly_rate
+
+      Math.log(-future_value + z / (amount + z)) / Math.log(1.0 + monthly_rate)
+    end
+
     # Fv computes future value at the end of some periods (duration).
     #   Required Loan arguments: nominal_rate, duration, payment, amount*
     #
