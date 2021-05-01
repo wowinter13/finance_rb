@@ -98,6 +98,7 @@ module Finance
 
       private
 
+      # @api private
       def correct_cashflows?(values)
         inflows, outflows = values.partition{ |i| i >= 0 }
         !(inflows.empty? || outflows.empty?)
@@ -105,6 +106,7 @@ module Finance
 
       # Base class for working with Newton's Method.
       # For more details, see Bigdecimal::Newton.
+      #
       # @api private
       class Function
         def initialize(values)

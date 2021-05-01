@@ -186,4 +186,15 @@ RSpec.describe Finance::Loan do
       end
     end
   end
+
+  describe '#rate' do
+    context 'with default arguments' do
+      it 'calculates correct rate value' do
+        loan = Finance::Loan.new(
+          nominal_rate: 10, amount: -3500, payment: 0, duration: 10, future_value: 10000
+        )
+        expect(loan.rate).to eq(0.11069085371426901)
+      end
+    end
+  end
 end
