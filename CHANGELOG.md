@@ -1,10 +1,14 @@
+## [0.2.1] - 2021-05-01
+
+### Added
+* Implement `Finance::Loan#nper`
+
 ## [0.2.0] - 2021-04-30
 
 ### Added
 * Implement `Finance::Loan#ppmt`
 
 ### Changed
-
 * By default `Finance::Loan#pmt` returns negative values.
 
 ## [0.1.2] - 2021-04-05
