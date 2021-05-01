@@ -1,3 +1,8 @@
+## [1.0.0] - 2021-05-01
+
+### Added
+* Implement `Finance::Loan#rate`
+
 ## [0.2.2] - 2021-05-01
 
 ### Added
