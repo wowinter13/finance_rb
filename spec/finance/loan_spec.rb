@@ -146,4 +146,24 @@ RSpec.describe Finance::Loan do
       end
     end
   end
+
+  describe '#nper' do
+    context 'with normal arguments' do
+      it 'calculates correct nper value' do
+        loan = Finance::Loan.new(
+          nominal_rate: 0.07, amount: 8000, payment: -150, future_value: 0 
+        )
+        expect(loan.nper).to eq(64.0733487706618586)
+      end
+    end
+
+    context 'with incorrect arguments' do
+      it 'raises Math::DomainError' do
+        loan = Finance::Loan.new(
+          nominal_rate: 1e100, amount: 8000, payment: -150, future_value: 0 
+        )
+        expect { loan.nper }.to raise_error(Math::DomainError)
+      end
+    end
+  end
 end
