@@ -23,12 +23,54 @@ which are as follows:
 | mirr                         |    ✅    |    Computes the modified internal rate of return|
 
 
-Things to be done:
+**Things to be done:**
 
 1. Xirr
 2. More specs for edge cases
 3. Fee, currency protection and other cool stuff for advanced usage
 4. Better errors
+5. A detailed documentation for all methods
+
+## Documentation
+
+Detailed documentation is available at [rubydoc](https://rubydoc.info/gems/finance_rb).
+
+### Basic usage
+
+There is no need to create a loan class to calculate some basic functions, such as `npv`, `irr`, or `mirr`. Simply call a needed method with required arguments using calculations class.
+
+1. **IRR** (Internal Rate of Return)
+
+    ```ruby
+    Finance::Calculations.irr([-4000,1200,1410,1875,1050])
+    => 0.14299344106053188
+    ```
+
+2. **MIRR** (Modified Internal Rate of Return)
+
+    ```ruby
+    Finance::Calculations.mirr([100, 200, -50, 300, -200], 0.05, 0.06)
+    => 0.3428233878421769
+    ```
+
+3. **NPV** (Net Present Value)
+
+    ```ruby
+    Finance::Calculations.net_present_value(0.1, [-100, 6, 6, 6])
+    => -85.07888805409468
+    ```
+
+### Advanced Usage
+
+Create a loan instance, and pass available parameters for nominal annual rate, duration (in months), and amount of loan.
+
+```ruby
+
+loan = Finance::Loan.new(nominal_rate: 0.1, duration: 12, amount: 1000)
+loan.pmt # => -87.9158872300099
+```
+
+Available methods: `pmt`, `ipmt`, `ppmt`, `nper`, `pv`, `fv`, `rate`.
 
 ## Installation
 
