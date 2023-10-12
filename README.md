@@ -6,6 +6,8 @@ The functions in this package are a scalar version of their vectorised counterpa
 
 ![tests](https://github.com/wowinter13/finance_rb/actions/workflows/tests.yml/badge.svg) [![Release](https://img.shields.io/github/v/release/wowinter13/finance_rb.svg?style=flat-square)](https://github.com/wowinter13/finance_rb/releases) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![Maintainability](https://api.codeclimate.com/v1/badges/bbca82ad7815794c6718/maintainability)](https://codeclimate.com/github/wowinter13/finance_rb/maintainability)
 
+[![Buy Me A Coffee](https://cdn.buymeacoffee.com/buttons/v2/default-blue.png)](https://www.buymeacoffee.com/wowinter13)
+
 Currently, only some functions are ported,  
 which are as follows:  
 
